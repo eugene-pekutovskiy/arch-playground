@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -25,11 +26,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
+        freeCompilerArgs = listOf("-Xjvm-default=compatibility")
     }
 }
 
@@ -38,5 +40,19 @@ dependencies {
     implementation(Libs.APP_COMPAT)
     implementation(Libs.MATERIAL)
     implementation(Libs.CONSTRAINT_LAYOUT)
+
+    //dagger
+    implementation(Libs.DAGGER)
+    kapt(Libs.DAGGER_ANDROID_PROCESSOR)
+    kapt(Libs.DAGGER_COMPILER)
+
+    //rxjava
+    implementation(Libs.RX_JAVA)
+
+    //ribs
+    implementation(Libs.RIB_ANDROID)
+    annotationProcessor(Libs.RIB_COMPILER)
+    testImplementation(Libs.RIB_TEST)
+
     testImplementation(Libs.JUNIT)
 }

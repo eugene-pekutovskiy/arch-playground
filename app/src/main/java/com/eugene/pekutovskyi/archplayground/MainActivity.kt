@@ -1,11 +1,13 @@
 package com.eugene.pekutovskyi.archplayground
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.view.ViewGroup
+import com.uber.rib.core.RibActivity
+import com.uber.rib.core.ViewRouter
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+class MainActivity : RibActivity() {
+
+    override fun createRouter(parentViewGroup: ViewGroup): ViewRouter<*, *> {
+        val rootBuilder = RootBuilder(object : RootBuilder.ParentComponent {})
+        return rootBuilder.build(parentViewGroup)
     }
 }

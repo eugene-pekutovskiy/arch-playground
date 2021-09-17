@@ -11,25 +11,22 @@ import javax.inject.Inject
  * TODO describe the logic of this scope.
  */
 @RibInteractor
-class MoviesListInteractor : Interactor<MoviesListInteractor.MoviesListPresenter, MoviesListRouter>() {
+class MoviesListInteractor :
+    Interactor<MoviesListInteractor.MoviesListPresenter, MoviesListRouter>() {
 
-  @Inject
-  lateinit var presenter: MoviesListPresenter
+    @Inject
+    lateinit var presenter: MoviesListPresenter
 
-  override fun didBecomeActive(savedInstanceState: Bundle?) {
-    super.didBecomeActive(savedInstanceState)
+    override fun didBecomeActive(savedInstanceState: Bundle?) {
+        super.didBecomeActive(savedInstanceState)
+    }
 
-    // TODO: Add attachment logic here (RxSubscriptions, etc.).
-  }
+    override fun willResignActive() {
+        super.willResignActive()
+    }
 
-  override fun willResignActive() {
-    super.willResignActive()
-
-    // TODO: Perform any required clean up here, or delete this method entirely if not needed.
-  }
-
-  /**
-   * Presenter interface implemented by this RIB's view.
-   */
-  interface MoviesListPresenter
+    /**
+     * Presenter interface implemented by this RIB's view.
+     */
+    interface MoviesListPresenter
 }
