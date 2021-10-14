@@ -1,20 +1,17 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
     kotlin("kapt")
 }
 
 android {
     compileSdk = Versions.COMPILE_SDK_VERSION
-
     defaultConfig {
-        applicationId = "com.eugene.pekutovskyi.archplayground"
         minSdkPreview = Versions.MIN_SDK_VERSION
         targetSdk = Versions.TARGET_SDK_VERSION
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "THE_MOVIES_DB_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        buildConfigField("String", "THE_MOVIES_DB_API_KEY", "\"${project.properties["TMDB_API_KEY"]}\"")
     }
 
     buildTypes {
@@ -33,21 +30,9 @@ android {
         jvmTarget = "1.8"
         freeCompilerArgs = listOf("-Xjvm-default=compatibility")
     }
-    kapt {
-        generateStubs = true
-    }
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":movies-list"))
-
-    implementation(Libs.ANDROID_X_CORE)
-    implementation(Libs.APP_COMPAT)
-    implementation(Libs.MATERIAL)
-    implementation(Libs.CONSTRAINT_LAYOUT)
-    implementation(Libs.TIMBER)
-
     //dagger
     implementation(Libs.DAGGER)
     kapt(Libs.DAGGER_ANDROID_PROCESSOR)
@@ -56,10 +41,13 @@ dependencies {
     //rxjava
     implementation(Libs.RX_JAVA)
 
-    //ribs
-    implementation(Libs.RIB_ANDROID)
-    annotationProcessor(Libs.RIB_COMPILER)
-    testImplementation(Libs.RIB_TEST)
+    // retrofit
+    api(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_RX_JAVA_ADAPTER)
+    implementation(Libs.RETROFIT_GSON_CONVERTER)
+    implementation(Libs.LOGGING_INTERCEPTOR)
+
+    implementation(Libs.GSON)
 
     testImplementation(Libs.JUNIT)
 }

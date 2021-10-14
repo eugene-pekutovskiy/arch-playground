@@ -17,6 +17,7 @@ class RootInteractor : Interactor<RootInteractor.RootPresenter, RootRouter>() {
 
   override fun didBecomeActive(savedInstanceState: Bundle?) {
     super.didBecomeActive(savedInstanceState)
+    router.attachMoviesList()
   }
 
   override fun willResignActive() {

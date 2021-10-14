@@ -2,6 +2,9 @@ package com.eugene.pekutovskyi.movies_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.eugene.pekutovskyi.data.repository.MoviesRepository
+import com.eugene.pekutovskyi.data.NetworkModule
+import com.eugene.pekutovskyi.data.repository.TheMoviesDbRepository
 import com.uber.rib.core.InteractorBaseComponent
 import com.uber.rib.core.ViewBuilder
 import dagger.Binds
@@ -55,6 +58,11 @@ class MoviesListBuilder(
             view: MoviesListView
         ): MoviesListInteractor.MoviesListPresenter
 
+        @Binds
+        abstract fun bindsMoviesRepository(
+            moviesRepository: TheMoviesDbRepository
+        ): MoviesRepository
+
         @dagger.Module
         companion object {
 
@@ -74,7 +82,7 @@ class MoviesListBuilder(
 
     @MoviesListScope
     @dagger.Component(
-        modules = [Module::class],
+        modules = [Module::class, NetworkModule::class],
         dependencies = [ParentComponent::class]
     )
     interface Component : InteractorBaseComponent<MoviesListInteractor>, BuilderComponent {

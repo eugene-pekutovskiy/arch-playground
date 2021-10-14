@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "archplayground"
 include ':app'
 include ':movies-list'
+include ':data'

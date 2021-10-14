@@ -31,10 +31,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
 
     implementation(Libs.ANDROID_X_CORE)
     implementation(Libs.APP_COMPAT)
     implementation(Libs.MATERIAL)
+    implementation(Libs.TIMBER)
 
     //dagger
     implementation(Libs.DAGGER)
@@ -43,6 +45,15 @@ dependencies {
 
     //rxjava
     implementation(Libs.RX_JAVA)
+    implementation(Libs.RX_ANDROID)
+
+    // retrofit
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_RX_JAVA_ADAPTER)
+    implementation(Libs.RETROFIT_GSON_CONVERTER)
+
+    implementation(Libs.GSON)
+
 
     //ribs
     implementation(Libs.RIB_ANDROID)

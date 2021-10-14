@@ -4,10 +4,11 @@ import android.view.ViewGroup
 import com.uber.rib.core.RibActivity
 import com.uber.rib.core.ViewRouter
 
-class MainActivity : RibActivity() {
+class MoviesActivity : RibActivity() {
 
     override fun createRouter(parentViewGroup: ViewGroup): ViewRouter<*, *> {
-        val rootBuilder = RootBuilder(object : RootBuilder.ParentComponent {})
-        return rootBuilder.build(parentViewGroup)
+        val applicationComponent = (application as MoviesApplication).applicationComponent
+        return RootBuilder(applicationComponent)
+            .build(parentViewGroup)
     }
 }

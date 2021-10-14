@@ -2,6 +2,7 @@ package com.eugene.pekutovskyi.archplayground
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.eugene.pekutovskyi.movies_list.MoviesListBuilder
 import com.uber.rib.core.InteractorBaseComponent
 import com.uber.rib.core.ViewBuilder
 import dagger.Binds
@@ -40,10 +41,7 @@ class RootBuilder(
         return inflater.inflate(R.layout.root_view, parentViewGroup, false) as RootView
     }
 
-    @Suppress("RemoveEmptyClassBody")
-    interface ParentComponent {
-
-    }
+    interface ParentComponent
 
     @dagger.Module
     abstract class Module {
@@ -61,9 +59,13 @@ class RootBuilder(
                 component: Component,
                 view: RootView,
                 interactor: RootInteractor
-            ): RootRouter = RootRouter(view, interactor, component)
+            ): RootRouter = RootRouter(
+                view,
+                interactor,
+                component,
+                MoviesListBuilder(component)
+            )
         }
-
     }
 
     @RootScope
@@ -71,7 +73,9 @@ class RootBuilder(
         modules = [Module::class],
         dependencies = [ParentComponent::class]
     )
-    interface Component : InteractorBaseComponent<RootInteractor>, BuilderComponent {
+    interface Component : InteractorBaseComponent<RootInteractor>,
+        MoviesListBuilder.ParentComponent,
+        BuilderComponent {
 
         @dagger.Component.Builder
         interface Builder {
