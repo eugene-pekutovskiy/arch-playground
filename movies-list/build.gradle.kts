@@ -32,6 +32,7 @@ android {
 
 dependencies {
     implementation(project(":data"))
+    implementation(project(":shared"))
 
     implementation(Libs.ANDROID_X_CORE)
     implementation(Libs.APP_COMPAT)

@@ -1,12 +1,11 @@
 package com.eugene.pekutovskyi.movies_list
 
 import com.eugene.pekutovskyi.data.repository.MoviesRepository
+import com.eugene.pekutovskyi.shared.SchedulersProvider
 import com.uber.rib.core.Bundle
 import com.uber.rib.core.Interactor
 import com.uber.rib.core.RibInteractor
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,6 +25,9 @@ class MoviesListInteractor :
     lateinit var moviesRepository: MoviesRepository
 
     @Inject
+    lateinit var schedulersProvider: SchedulersProvider
+
+    @Inject
     lateinit var popularMoviesToMovieUiModelMapper: PopularMoviesToMovieUiModelMapper
 
     private var disposable: Disposable? = null
@@ -36,8 +38,8 @@ class MoviesListInteractor :
             .map {
                 it.results.map(popularMoviesToMovieUiModelMapper::map)
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulersProvider.io())
+            .observeOn(schedulersProvider.main())
             .subscribe(
                 presenter::displayMoviesList,
                 Timber::e
